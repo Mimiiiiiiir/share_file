@@ -216,8 +216,8 @@
                 "💦 56 - VLESS C - IPv4 : 2096",
                 "💦 57 - VLESS C - Domain : 2096"
             ],
-            "url": "http://kernel.org",
-            "interval": "30s",
+            "url": "http://detectportal.firefox.com",
+            "interval": "90s",
             "tolerance": 50
         },
         {
