@@ -216,7 +216,7 @@
                 "💦 56 - VLESS C - IPv4 : 2096",
                 "💦 57 - VLESS C - Domain : 2096"
             ],
-            "url": "http://connectivitycheck.gstatic.com/generate_204",
+            "url": "http://kernel.org",
             "interval": "30s",
             "tolerance": 50
         },
