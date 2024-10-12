@@ -182,7 +182,7 @@
         "2-vless-worker-vworker.tycip.wOrKERS.DEv",
         "3-vless-worker-vworker.tycip.WOrKERS.Dev"
       ],
-      "url": "https://detectportal.firefox.com/success.txt",
+      "url": "https://detectportal.firefox.com",
       "interval": "1m0s"
     },
     {
