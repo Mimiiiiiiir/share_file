@@ -1,0 +1,1842 @@
+{
+    "log": {
+        "level": "warn",
+        "timestamp": true
+    },
+    "dns": {
+        "servers": [
+            {
+                "address": "https://sky.rethinkdns.com/dns-query",
+                "address_resolver": "dns-direct",
+                "strategy": "prefer_ipv4",
+                "detour": "💦 Best Ping 💥",
+                "tag": "dns-remote"
+            },
+            {
+                "address": "local",
+                "strategy": "prefer_ipv4",
+                "detour": "direct",
+                "tag": "dns-direct"
+            },
+            {
+                "address": "rcode://success",
+                "tag": "dns-block"
+            }
+        ],
+        "rules": [
+            {
+                "domain": [
+                    "www.gstatic.com",
+                    "bpb.behnambazi.workers.dev",
+                    "www.speedtest.net",
+                    "sky.rethinkdns.com",
+                    "midsummer.nscl.ir",
+                    "zula.ir",
+                    "live.skornorth.com"
+                ],
+                "server": "dns-direct"
+            },
+            {
+                "outbound": "any",
+                "server": "dns-direct"
+            },
+            {
+                "rule_set": [
+                    "geosite-ir"
+                ],
+                "server": "dns-direct"
+            },
+            {
+                "disable_cache": true,
+                "rule_set": [
+                    "geosite-malware",
+                    "geosite-phishing",
+                    "geosite-cryptominers",
+                    "geosite-category-ads-all"
+                ],
+                "server": "dns-block"
+            }
+        ],
+        "independent_cache": true
+    },
+    "inbounds": [
+        {
+            "type": "direct",
+            "tag": "dns-in",
+            "listen": "0.0.0.0",
+            "listen_port": 6450,
+            "override_address": "8.8.8.8",
+            "override_port": 53
+        },
+        {
+            "type": "tun",
+            "tag": "tun-in",
+            "inet4_address": "172.19.0.1/28",
+            "inet6_address": "fdfe:dcba:9876::1/126",
+            "mtu": 9000,
+            "auto_route": true,
+            "strict_route": true,
+            "stack": "mixed",
+            "sniff": true,
+            "sniff_override_destination": true
+        },
+        {
+            "type": "mixed",
+            "tag": "mixed-in",
+            "listen": "0.0.0.0",
+            "listen_port": 2080,
+            "sniff": true,
+            "sniff_override_destination": false
+        }
+    ],
+    "outbounds": [
+        {
+            "type": "selector",
+            "tag": "proxy",
+            "outbounds": [
+                "💦 Best Ping 💥",
+                "💦 1 - VLESS - Domain : 443",
+                "💦 2 - VLESS - Domain : 443",
+                "💦 3 - VLESS - IPv4 : 443",
+                "💦 4 - VLESS - IPv4 : 443",
+                "💦 5 - VLESS - IPv6 : 443",
+                "💦 6 - VLESS - IPv6 : 443",
+                "💦 7 - VLESS - Clean IP : 443",
+                "💦 8 - VLESS - Clean IP : 443",
+                "💦 9 - VLESS - Clean IP : 443",
+                "💦 10 - VLESS - Clean IP : 443",
+                "💦 11 - VLESS - Clean IP : 443",
+                "💦 12 - VLESS - Clean IP : 443",
+                "💦 13 - VLESS - Clean IP : 443",
+                "💦 14 - VLESS - Clean IP : 443",
+                "💦 15 - VLESS - Clean IP : 443",
+                "💦 16 - VLESS C - IPv4 : 443",
+                "💦 17 - VLESS C - IPv4 : 443",
+                "💦 18 - VLESS C - IPv4 : 443",
+                "💦 19 - VLESS C - Domain : 443",
+                "💦 20 - VLESS - Domain : 2083",
+                "💦 21 - VLESS - Domain : 2083",
+                "💦 22 - VLESS - IPv4 : 2083",
+                "💦 23 - VLESS - IPv4 : 2083",
+                "💦 24 - VLESS - IPv6 : 2083",
+                "💦 25 - VLESS - IPv6 : 2083",
+                "💦 26 - VLESS - Clean IP : 2083",
+                "💦 27 - VLESS - Clean IP : 2083",
+                "💦 28 - VLESS - Clean IP : 2083",
+                "💦 29 - VLESS - Clean IP : 2083",
+                "💦 30 - VLESS - Clean IP : 2083",
+                "💦 31 - VLESS - Clean IP : 2083",
+                "💦 32 - VLESS - Clean IP : 2083",
+                "💦 33 - VLESS - Clean IP : 2083",
+                "💦 34 - VLESS - Clean IP : 2083",
+                "💦 35 - VLESS C - IPv4 : 2083",
+                "💦 36 - VLESS C - IPv4 : 2083",
+                "💦 37 - VLESS C - IPv4 : 2083",
+                "💦 38 - VLESS C - Domain : 2083",
+                "💦 39 - VLESS - Domain : 2096",
+                "💦 40 - VLESS - Domain : 2096",
+                "💦 41 - VLESS - IPv4 : 2096",
+                "💦 42 - VLESS - IPv4 : 2096",
+                "💦 43 - VLESS - IPv6 : 2096",
+                "💦 44 - VLESS - IPv6 : 2096",
+                "💦 45 - VLESS - Clean IP : 2096",
+                "💦 46 - VLESS - Clean IP : 2096",
+                "💦 47 - VLESS - Clean IP : 2096",
+                "💦 48 - VLESS - Clean IP : 2096",
+                "💦 49 - VLESS - Clean IP : 2096",
+                "💦 50 - VLESS - Clean IP : 2096",
+                "💦 51 - VLESS - Clean IP : 2096",
+                "💦 52 - VLESS - Clean IP : 2096",
+                "💦 53 - VLESS - Clean IP : 2096",
+                "💦 54 - VLESS C - IPv4 : 2096",
+                "💦 55 - VLESS C - IPv4 : 2096",
+                "💦 56 - VLESS C - IPv4 : 2096",
+                "💦 57 - VLESS C - Domain : 2096"
+            ]
+        },
+        {
+            "type": "urltest",
+            "tag": "💦 Best Ping 💥",
+            "outbounds": [
+                "💦 1 - VLESS - Domain : 443",
+                "💦 2 - VLESS - Domain : 443",
+                "💦 3 - VLESS - IPv4 : 443",
+                "💦 4 - VLESS - IPv4 : 443",
+                "💦 5 - VLESS - IPv6 : 443",
+                "💦 6 - VLESS - IPv6 : 443",
+                "💦 7 - VLESS - Clean IP : 443",
+                "💦 8 - VLESS - Clean IP : 443",
+                "💦 9 - VLESS - Clean IP : 443",
+                "💦 10 - VLESS - Clean IP : 443",
+                "💦 11 - VLESS - Clean IP : 443",
+                "💦 12 - VLESS - Clean IP : 443",
+                "💦 13 - VLESS - Clean IP : 443",
+                "💦 14 - VLESS - Clean IP : 443",
+                "💦 15 - VLESS - Clean IP : 443",
+                "💦 16 - VLESS C - IPv4 : 443",
+                "💦 17 - VLESS C - IPv4 : 443",
+                "💦 18 - VLESS C - IPv4 : 443",
+                "💦 19 - VLESS C - Domain : 443",
+                "💦 20 - VLESS - Domain : 2083",
+                "💦 21 - VLESS - Domain : 2083",
+                "💦 22 - VLESS - IPv4 : 2083",
+                "💦 23 - VLESS - IPv4 : 2083",
+                "💦 24 - VLESS - IPv6 : 2083",
+                "💦 25 - VLESS - IPv6 : 2083",
+                "💦 26 - VLESS - Clean IP : 2083",
+                "💦 27 - VLESS - Clean IP : 2083",
+                "💦 28 - VLESS - Clean IP : 2083",
+                "💦 29 - VLESS - Clean IP : 2083",
+                "💦 30 - VLESS - Clean IP : 2083",
+                "💦 31 - VLESS - Clean IP : 2083",
+                "💦 32 - VLESS - Clean IP : 2083",
+                "💦 33 - VLESS - Clean IP : 2083",
+                "💦 34 - VLESS - Clean IP : 2083",
+                "💦 35 - VLESS C - IPv4 : 2083",
+                "💦 36 - VLESS C - IPv4 : 2083",
+                "💦 37 - VLESS C - IPv4 : 2083",
+                "💦 38 - VLESS C - Domain : 2083",
+                "💦 39 - VLESS - Domain : 2096",
+                "💦 40 - VLESS - Domain : 2096",
+                "💦 41 - VLESS - IPv4 : 2096",
+                "💦 42 - VLESS - IPv4 : 2096",
+                "💦 43 - VLESS - IPv6 : 2096",
+                "💦 44 - VLESS - IPv6 : 2096",
+                "💦 45 - VLESS - Clean IP : 2096",
+                "💦 46 - VLESS - Clean IP : 2096",
+                "💦 47 - VLESS - Clean IP : 2096",
+                "💦 48 - VLESS - Clean IP : 2096",
+                "💦 49 - VLESS - Clean IP : 2096",
+                "💦 50 - VLESS - Clean IP : 2096",
+                "💦 51 - VLESS - Clean IP : 2096",
+                "💦 52 - VLESS - Clean IP : 2096",
+                "💦 53 - VLESS - Clean IP : 2096",
+                "💦 54 - VLESS C - IPv4 : 2096",
+                "💦 55 - VLESS C - IPv4 : 2096",
+                "💦 56 - VLESS C - IPv4 : 2096",
+                "💦 57 - VLESS C - Domain : 2096"
+            ],
+            "url": "http://detectportal.firefox.com",
+            "interval": "90s",
+            "tolerance": 50
+        },
+        {
+            "type": "direct",
+            "tag": "direct"
+        },
+        {
+            "type": "block",
+            "tag": "block"
+        },
+        {
+            "type": "dns",
+            "tag": "dns-out"
+        },
+        {
+            "type": "vless",
+            "server": "vworker.tycip.workers.dev",
+            "server_port": 8443,
+            "uuid": "3dbcc13a-6998-5eb6-8080-28c2eab1c42d",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "vworker.tycip.workers.dev",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "vworker.tycip.workers.dev"
+                },
+                "path": "vless-ws/?ed=2048",
+                "type": "ws"
+            },
+            "tag": "💦 1 - VLESS - Domain : 443"
+        },
+        {
+            "type": "vless",
+            "server": "vworker.tycip.workers.dev",
+            "server_port": 443,
+            "uuid": "3dbcc13a-6998-5eb6-8080-28c2eab1c42d",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "vworker.tycip.workers.dev",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "vworker.tycip.workers.dev"
+                },
+                "path": "vless-ws/?ed=2048",
+                "type": "ws"
+            },
+            "tag": "💦 2 - VLESS - Domain : 2053"
+        },
+        {
+            "type": "vless",
+            "server": "vworker.tycip.workers.dev",
+            "server_port": 2053,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "vworker.tycip.workers.dev",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "vworker.tycip.workers.dev"
+                },
+                "path": "vless-ws/?ed=2048",
+                "type": "ws"
+            },
+            "tag": "💦 3 - VLESS - IPv4 : 443"
+        },
+        {
+            "type": "vless",
+            "server": "188.114.97.3",
+            "server_port": 443,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "BpB.beHnAmbAzi.WORKeRS.DeV",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/JdZtnyySoz0Iqbyl/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 4 - VLESS - IPv4 : 443"
+        },
+        {
+            "type": "vless",
+            "server": "[2a06:98c1:3120::3]",
+            "server_port": 443,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bPb.BehNAMBaZi.workeRs.dEV",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/f3zzKm5KTfSyqNTS/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 5 - VLESS - IPv6 : 443"
+        },
+        {
+            "type": "vless",
+            "server": "[2a06:98c1:3121::3]",
+            "server_port": 443,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bPb.behNAmBAZI.WORKers.Dev",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/MtAYCETwTfUVZH0Q/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 6 - VLESS - IPv6 : 443"
+        },
+        {
+            "type": "vless",
+            "server": "sky.rethinkdns.com",
+            "server_port": 443,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bPb.bEhnAMBAZI.woRkErS.deV",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/SRB1yrwddY9a4xOW/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 7 - VLESS - Clean IP : 443"
+        },
+        {
+            "type": "vless",
+            "server": "midsummer.nscl.ir",
+            "server_port": 443,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "Bpb.bEhnAmBAZi.WOrKERs.DEV",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/UftvSmMTRR0RFSpN/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 8 - VLESS - Clean IP : 443"
+        },
+        {
+            "type": "vless",
+            "server": "zula.ir",
+            "server_port": 443,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "BPB.BehNaMBAZi.WORkeRS.Dev",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/Uv4DqJ5o9i2721N4/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 9 - VLESS - Clean IP : 443"
+        },
+        {
+            "type": "vless",
+            "server": "104.20.253.65",
+            "server_port": 443,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "BpB.bEhNAmbazi.WORKeRs.DEv",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/z3JHD49Z3Pu3NM7L/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 10 - VLESS - Clean IP : 443"
+        },
+        {
+            "type": "vless",
+            "server": "104.20.52.184",
+            "server_port": 443,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "BPb.BEhnambAZI.WOrKeRS.DeV",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/BaPFuoZxeaL88iul/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 11 - VLESS - Clean IP : 443"
+        },
+        {
+            "type": "vless",
+            "server": "89.207.18.140",
+            "server_port": 443,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bPb.beHNaMbAzI.wORKerS.dev",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/fzUv0UCprZ19W3Ko/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 12 - VLESS - Clean IP : 443"
+        },
+        {
+            "type": "vless",
+            "server": "45.12.31.246",
+            "server_port": 443,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bPB.behNambaZi.WoRkErS.dev",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/RV1y1jKdWNIcxfw6/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 13 - VLESS - Clean IP : 443"
+        },
+        {
+            "type": "vless",
+            "server": "172.67.179.224",
+            "server_port": 443,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "BpB.behnAmBAZi.WORkERs.DEv",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/NBXdJSgL9ZsFd6TA/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 14 - VLESS - Clean IP : 443"
+        },
+        {
+            "type": "vless",
+            "server": "npmjs.com\t",
+            "server_port": 443,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bpB.beHnaMBazi.wOrKErs.DEV",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/XKnr7gYjsAVbiaj1/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 15 - VLESS - Clean IP : 443"
+        },
+        {
+            "type": "vless",
+            "server": "23.235.33.114",
+            "server_port": 443,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "LIve.SKOrNoRth.coM",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "live.skornorth.com"
+                },
+                "path": "/uzS79bo1lxK50xUT/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 16 - VLESS C - IPv4 : 443"
+        },
+        {
+            "type": "vless",
+            "server": "199.232.32.247",
+            "server_port": 443,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "livE.sKornORTH.coM",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "live.skornorth.com"
+                },
+                "path": "/uKKyvU3SAnMTBqDS/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 17 - VLESS C - IPv4 : 443"
+        },
+        {
+            "type": "vless",
+            "server": "104.156.85.239",
+            "server_port": 443,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "liVE.SKORnOrTH.cOm",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "live.skornorth.com"
+                },
+                "path": "/gxGPO5henq8nfiQG/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 18 - VLESS C - IPv4 : 443"
+        },
+        {
+            "type": "vless",
+            "server": "live.skornorth.com",
+            "server_port": 443,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "liVe.sKOrnORth.COm",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "live.skornorth.com"
+                },
+                "path": "/D4JrJUpxEJnS8duE/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 19 - VLESS C - Domain : 443"
+        },
+        {
+            "type": "vless",
+            "server": "bpb.behnambazi.workers.dev",
+            "server_port": 2083,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "BPB.BeHnAmbaZI.WORKERS.dEV",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/zd4e0ewoFzMAWjK5/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 20 - VLESS - Domain : 2083"
+        },
+        {
+            "type": "vless",
+            "server": "www.speedtest.net",
+            "server_port": 2083,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "Bpb.BehnaMBazI.wOrkERs.dEv",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/Mlzfp5fPERt98DqJ/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 21 - VLESS - Domain : 2083"
+        },
+        {
+            "type": "vless",
+            "server": "188.114.96.3",
+            "server_port": 2083,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "BPB.bEhNamBAzI.wOrKerS.dev",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/sYhlRTgnNGdCVB1K/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 22 - VLESS - IPv4 : 2083"
+        },
+        {
+            "type": "vless",
+            "server": "188.114.97.3",
+            "server_port": 2083,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "Bpb.BeHNambaZI.wORKErs.DEv",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/TDgiarJXVUTzs17E/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 23 - VLESS - IPv4 : 2083"
+        },
+        {
+            "type": "vless",
+            "server": "[2a06:98c1:3120::3]",
+            "server_port": 2083,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bPb.behnaMBaZI.WorkeRs.dEv",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/DENiAoyIr3kFnd2F/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 24 - VLESS - IPv6 : 2083"
+        },
+        {
+            "type": "vless",
+            "server": "[2a06:98c1:3121::3]",
+            "server_port": 2083,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "BPB.behNamBazi.wOrKers.Dev",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/kDv8jXElSVfYFA1R/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 25 - VLESS - IPv6 : 2083"
+        },
+        {
+            "type": "vless",
+            "server": "sky.rethinkdns.com",
+            "server_port": 2083,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bPb.bEHnAMBAZi.woRKerS.dev",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/qoSdvXIzArkRFfQN/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 26 - VLESS - Clean IP : 2083"
+        },
+        {
+            "type": "vless",
+            "server": "midsummer.nscl.ir",
+            "server_port": 2083,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bPb.BehnamBazI.wORKErs.DeV",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/NrTtRbrXVDtU1ELC/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 27 - VLESS - Clean IP : 2083"
+        },
+        {
+            "type": "vless",
+            "server": "zula.ir",
+            "server_port": 2083,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "BPb.BeHNAmbAzi.WOrkERS.deV",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/gptqhuX2PDt1RH3c/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 28 - VLESS - Clean IP : 2083"
+        },
+        {
+            "type": "vless",
+            "server": "104.20.253.65",
+            "server_port": 2083,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "Bpb.behNAMBAZI.WOrKerS.DEV",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/sQQjxCeeCi4VraL6/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 29 - VLESS - Clean IP : 2083"
+        },
+        {
+            "type": "vless",
+            "server": "104.20.52.184",
+            "server_port": 2083,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "BpB.BEHNAmbazi.WOrKErS.dEV",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/wa5Z3aUpaqnPUMcr/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 30 - VLESS - Clean IP : 2083"
+        },
+        {
+            "type": "vless",
+            "server": "89.207.18.140",
+            "server_port": 2083,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bpb.bEHNAmBAZi.WORkeRs.dEV",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/xYNimgOs9UaYgMbZ/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 31 - VLESS - Clean IP : 2083"
+        },
+        {
+            "type": "vless",
+            "server": "45.12.31.246",
+            "server_port": 2083,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bPb.BehNamBAzi.WORKers.deV",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/PDankbEHf7g0bVCu/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 32 - VLESS - Clean IP : 2083"
+        },
+        {
+            "type": "vless",
+            "server": "172.67.179.224",
+            "server_port": 2083,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bpB.BEhnAmbaZI.WorKERs.dev",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/F4fl43QQMG44uMYG/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 33 - VLESS - Clean IP : 2083"
+        },
+        {
+            "type": "vless",
+            "server": "npmjs.com\t",
+            "server_port": 2083,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bpB.bEHnaMbazi.WORkERS.DeV",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/mzlO1KXJeXHLP2EL/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 34 - VLESS - Clean IP : 2083"
+        },
+        {
+            "type": "vless",
+            "server": "23.235.33.114",
+            "server_port": 2083,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "lIVE.skoRNOrTh.com",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "live.skornorth.com"
+                },
+                "path": "/xNQrV6S97s67UwNU/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 35 - VLESS C - IPv4 : 2083"
+        },
+        {
+            "type": "vless",
+            "server": "199.232.32.247",
+            "server_port": 2083,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "lIve.sKOrNORth.coM",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "live.skornorth.com"
+                },
+                "path": "/p9b49yVb5kZ8Wqou/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 36 - VLESS C - IPv4 : 2083"
+        },
+        {
+            "type": "vless",
+            "server": "104.156.85.239",
+            "server_port": 2083,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "LiVe.SKoRNORth.cOm",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "live.skornorth.com"
+                },
+                "path": "/RLZAOtgMUmrWm0lc/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 37 - VLESS C - IPv4 : 2083"
+        },
+        {
+            "type": "vless",
+            "server": "live.skornorth.com",
+            "server_port": 2083,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "LiVE.SKORNortH.Com",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "live.skornorth.com"
+                },
+                "path": "/PaCdb5jlEQU5jOXT/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 38 - VLESS C - Domain : 2083"
+        },
+        {
+            "type": "vless",
+            "server": "bpb.behnambazi.workers.dev",
+            "server_port": 2096,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bpb.bEHNambAzI.WoRkers.dEv",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/00080uLsZxr68XHv/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 39 - VLESS - Domain : 2096"
+        },
+        {
+            "type": "vless",
+            "server": "www.speedtest.net",
+            "server_port": 2096,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bPb.BehnaMBAZi.wORkErS.DEV",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/ysEXBR3l0zZWtzxj/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 40 - VLESS - Domain : 2096"
+        },
+        {
+            "type": "vless",
+            "server": "188.114.96.3",
+            "server_port": 2096,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "BPb.behnambaZi.WoRkErS.DEv",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/jPCNntCYceSxi3D8/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 41 - VLESS - IPv4 : 2096"
+        },
+        {
+            "type": "vless",
+            "server": "188.114.97.3",
+            "server_port": 2096,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bPB.BehNAMBazI.WoRKerS.dEv",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/S0clMa8sOT26wpDx/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 42 - VLESS - IPv4 : 2096"
+        },
+        {
+            "type": "vless",
+            "server": "[2a06:98c1:3120::3]",
+            "server_port": 2096,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "Bpb.bEHNAMBAZI.worKERs.DeV",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/pU1LZIUOXoizt1ro/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 43 - VLESS - IPv6 : 2096"
+        },
+        {
+            "type": "vless",
+            "server": "[2a06:98c1:3121::3]",
+            "server_port": 2096,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bpB.BehnAmBAzi.WORkErS.dEv",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/TE5qs6Q7c13U5iyc/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 44 - VLESS - IPv6 : 2096"
+        },
+        {
+            "type": "vless",
+            "server": "sky.rethinkdns.com",
+            "server_port": 2096,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bPb.bEHNAMbazI.WoRkerS.DeV",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/RbvEcbzxbLhGwppX/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 45 - VLESS - Clean IP : 2096"
+        },
+        {
+            "type": "vless",
+            "server": "midsummer.nscl.ir",
+            "server_port": 2096,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "BPB.beHnAmBAZI.WOrKERS.dev",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/Vtn7wxggzTwtogIZ/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 46 - VLESS - Clean IP : 2096"
+        },
+        {
+            "type": "vless",
+            "server": "zula.ir",
+            "server_port": 2096,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "BpB.bEhnAMBaZi.WORKers.DeV",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/L3qAGOka1kWtUbQK/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 47 - VLESS - Clean IP : 2096"
+        },
+        {
+            "type": "vless",
+            "server": "104.20.253.65",
+            "server_port": 2096,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bPb.BehnaMbAzI.WoRkErs.dEv",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/lUqkuMEptocerioE/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 48 - VLESS - Clean IP : 2096"
+        },
+        {
+            "type": "vless",
+            "server": "104.20.52.184",
+            "server_port": 2096,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bPB.bEHnamBAzI.wORKers.Dev",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/5MQJOSi8WCCQtU6l/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 49 - VLESS - Clean IP : 2096"
+        },
+        {
+            "type": "vless",
+            "server": "89.207.18.140",
+            "server_port": 2096,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "BPB.BEhNaMbAzI.worKeRs.Dev",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/YvtpzE1AbuDCkYZa/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 50 - VLESS - Clean IP : 2096"
+        },
+        {
+            "type": "vless",
+            "server": "45.12.31.246",
+            "server_port": 2096,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bpb.bEhNambazI.wORkers.DeV",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/x9w6puOjuKfViVlN/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 51 - VLESS - Clean IP : 2096"
+        },
+        {
+            "type": "vless",
+            "server": "172.67.179.224",
+            "server_port": 2096,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bPB.BEHnaMBAzI.WoRKErS.dev",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/3OUHIQAxN8ZxCg1Z/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 52 - VLESS - Clean IP : 2096"
+        },
+        {
+            "type": "vless",
+            "server": "npmjs.com\t",
+            "server_port": 2096,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "bpB.beHNaMBaZI.woRkeRs.deV",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "bpb.behnambazi.workers.dev"
+                },
+                "path": "/npZFkedmhJVqqt5B/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 53 - VLESS - Clean IP : 2096"
+        },
+        {
+            "type": "vless",
+            "server": "23.235.33.114",
+            "server_port": 2096,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "LIVe.sKoRNoRtH.CoM",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "live.skornorth.com"
+                },
+                "path": "/w4erJex8L3MgRoQV/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 54 - VLESS C - IPv4 : 2096"
+        },
+        {
+            "type": "vless",
+            "server": "199.232.32.247",
+            "server_port": 2096,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "lIVE.SKoRnORTh.cOM",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "live.skornorth.com"
+                },
+                "path": "/JwL8qO2szKzsYMxt/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 55 - VLESS C - IPv4 : 2096"
+        },
+        {
+            "type": "vless",
+            "server": "104.156.85.239",
+            "server_port": 2096,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "Live.SkoRNoRTH.cOM",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "live.skornorth.com"
+                },
+                "path": "/zIyEridDIbvOIf4D/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 56 - VLESS C - IPv4 : 2096"
+        },
+        {
+            "type": "vless",
+            "server": "live.skornorth.com",
+            "server_port": 2096,
+            "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+            "tls": {
+                "alpn": "http/1.1",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "LiVe.sKoRnORtH.CoM",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            },
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "live.skornorth.com"
+                },
+                "path": "/a6TO3dgbXfsWQLUh/dHVyay5yYWRpY2FsaXphdGlvbi5pcg==",
+                "type": "ws"
+            },
+            "tag": "💦 57 - VLESS C - Domain : 2096"
+        }
+    ],
+    "route": {
+        "rules": [
+            {
+                "inbound": "dns-in",
+                "outbound": "dns-out"
+            },
+            {
+                "network": "udp",
+                "port": 53,
+                "outbound": "dns-out"
+            },
+            {
+                "rule_set": [
+                    "geosite-ir",
+                    "geoip-ir"
+                ],
+                "outbound": "direct"
+            },
+            {
+                "ip_is_private": true,
+                "outbound": "direct"
+            },
+            {
+                "network": "udp",
+                "outbound": "block"
+            },
+            {
+                "rule_set": [
+                    "geosite-malware",
+                    "geosite-phishing",
+                    "geosite-cryptominers",
+                    "geoip-malware",
+                    "geoip-phishing",
+                    "geosite-category-ads-all"
+                ],
+                "outbound": "block"
+            },
+            {
+                "ip_cidr": [
+                    "224.0.0.0/3",
+                    "ff00::/8"
+                ],
+                "source_ip_cidr": [
+                    "224.0.0.0/3",
+                    "ff00::/8"
+                ],
+                "outbound": "block"
+            }
+        ],
+        "rule_set": [
+            {
+                "type": "remote",
+                "tag": "geosite-malware",
+                "format": "binary",
+                "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-malware.srs",
+                "download_detour": "direct"
+            },
+            {
+                "type": "remote",
+                "tag": "geosite-phishing",
+                "format": "binary",
+                "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-phishing.srs",
+                "download_detour": "direct"
+            },
+            {
+                "type": "remote",
+                "tag": "geosite-cryptominers",
+                "format": "binary",
+                "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-cryptominers.srs",
+                "download_detour": "direct"
+            },
+            {
+                "type": "remote",
+                "tag": "geoip-malware",
+                "format": "binary",
+                "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-malware.srs",
+                "download_detour": "direct"
+            },
+            {
+                "type": "remote",
+                "tag": "geoip-phishing",
+                "format": "binary",
+                "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-phishing.srs",
+                "download_detour": "direct"
+            },
+            {
+                "type": "remote",
+                "tag": "geosite-ir",
+                "format": "binary",
+                "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-ir.srs",
+                "download_detour": "direct"
+            },
+            {
+                "type": "remote",
+                "tag": "geoip-ir",
+                "format": "binary",
+                "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-ir.srs",
+                "download_detour": "direct"
+            },
+            {
+                "type": "remote",
+                "tag": "geosite-category-ads-all",
+                "format": "binary",
+                "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-category-ads-all.srs",
+                "download_detour": "direct"
+            }
+        ],
+        "auto_detect_interface": true,
+        "override_android_vpn": true,
+        "final": "proxy"
+    },
+    "experimental": {
+        "cache_file": {
+            "enabled": true
+        },
+        "clash_api": {
+            "external_controller": "0.0.0.0:9090",
+            "external_ui": "yacd",
+            "external_ui_download_url": "https://github.com/MetaCubeX/Yacd-meta/archive/gh-pages.zip",
+            "external_ui_download_detour": "direct",
+            "secret": "",
+            "default_mode": "rule"
+        }
+    }
+}
