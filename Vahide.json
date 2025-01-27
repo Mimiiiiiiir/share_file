@@ -1,386 +1,218 @@
 {
   "log": {
-    "disabled": false,
     "level": "warn",
+    "output": "box.log",
     "timestamp": true
-  },
-  "experimental": {
-    "clash_api": {
-      "external_controller": "0.0.0.0:9090",
-      "external_ui": "yacd",
-      "external_ui_download_url": "https://ghp.ci/https://github.com/MetaCubeX/Yacd-meta/archive/gh-pages.zip",
-      "external_ui_download_detour": "Internet",
-      "secret": "",
-      "default_mode": "rule",
-      "store_selected": true,
-      "cache_file": "clash.db"
-    }
   },
   "dns": {
     "servers": [
       {
-        "tag": "Internet-dns",
-        "address": "1.0.0.1",
-        "strategy": "ipv4_only",
-        "detour": "Internet"
+        "tag": "dns-remote",
+        "address": "8.8.8.8",
+        "address_resolver": "dns-direct"
       },
       {
-        "tag": "Best Latency-dns",
+        "tag": "dns-trick-direct",
+        "address": "https://sky.rethinkdns.com/",
+        "detour": "direct-fragment"
+      },
+      {
+        "tag": "dns-direct",
         "address": "1.1.1.1",
-        "strategy": "ipv4_only",
-        "detour": "Best Latency"
-      },
-      {
-        "tag": "direct-dns",
-        "address": "local",
-        "strategy": "ipv4_only",
+        "address_resolver": "dns-local",
         "detour": "direct"
       },
       {
-        "tag": "block-dns",
+        "tag": "dns-local",
+        "address": "local",
+        "detour": "direct"
+      },
+      {
+        "tag": "dns-block",
         "address": "rcode://success"
       }
     ],
     "rules": [
       {
-        "domain_suffix": [
-          ".arpa.",
-          ".arpa"
+        "domain": "connectivitycheck.gstatic.com",
+        "server": "dns-remote",
+        "rewrite_ttl": 3000
+      },
+      {
+        "domain_suffix": ".ir",
+        "server": "dns-direct"
+      },
+      {
+        "rule_set": [
+          "geoip-ir",
+          "geosite-ir"
         ],
-        "server": "block-dns",
-        "rewrite_ttl": 20
-      },
-      {
-        "network": "udp",
-        "port": 443,
-        "server": "block-dns",
-        "rewrite_ttl": 20
-      },
-      {
-        "outbound": "Internet",
-        "server": "Internet-dns",
-        "rewrite_ttl": 20
-      },
-      {
-        "outbound": "Best Latency",
-        "server": "Best Latency-dns",
-        "rewrite_ttl": 20
-      },
-      {
-        "outbound": "direct",
-        "server": "direct-dns",
-        "rewrite_ttl": 20,
-        "domain_suffix": [
-          "vworker.tycip.workers.dev",
-          "vworker.tycip.workers.dev",
-          "vworker.tycip.workers.dev",
-          "vworker.tycip.workers.dev",
-          "vworker.tycip.workers.dev",
-          "vworker.tycip.workers.dev",
-          "vworker.tycip.workers.dev",
-          "vworker.tycip.workers.dev"
-        ]
-      },
-      {
-        "outbound": "any",
-        "server": "direct-dns",
-        "rewrite_ttl": 20
+        "server": "dns-direct"
       }
     ],
-    "reverse_mapping": true,
-    "strategy": "ipv4_only",
+    "final": "dns-remote",
+    "static_ips": {
+      "sky.rethinkdns.com": [
+        "104.17.148.22",
+        "104.17.147.22",
+        "188.114.96.3",
+        "188.114.97.3"
+      ]
+    },
     "independent_cache": true
   },
   "inbounds": [
     {
-      "type": "tun",
-      "tag": "tun-in",
-      "interface_name": "tun0",
-      "inet4_address": "172.19.0.1/30",
-      "mtu": 9000,
-      "auto_route": true,
-      "strict_route": true,
-      "stack": "system",
-      "endpoint_independent_nat": true,
-      "sniff": true
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "127.0.0.1",
+      "listen_port": 12334,
+      "sniff": true,
+      "sniff_override_destination": true,
+      "set_system_proxy": true
     },
     {
-      "listen": "0.0.0.0",
-      "listen_port": 2080,
-      "sniff": true,
-      "tag": "mixed-in",
-      "type": "mixed"
+      "type": "direct",
+      "tag": "dns-in",
+      "listen": "127.0.0.1",
+      "listen_port": 16450
     }
   ],
   "outbounds": [
     {
-      "tag": "1-vless-worker-vworker.tycip.WorKErS.Dev",
-      "type": "vless",
-      "server": "vworker.tycip.workers.dev",
-      "server_port": 8443,
-      "uuid": "3dbcc13a-6998-5eb6-8080-28c2eab1c42d",
-      "flow": "",
-      "packet_encoding": "xudp",
-      "multiplex": {
-        "enabled": false,
-        "protocol": "smux",
-        "max_streams": 32
-      },
-      "tls": {
-        "enabled": true,
-        "server_name": "vworker.tycip.WorKErS.Dev",
-        "insecure": true,
-        "disable_sni": false
-      },
-      "transport": {
-        "type": "ws",
-        "path": "vless-ws/?ed=2048",
-        "headers": {
-          "Host": "vworker.tycip.WorKErS.Dev"
-        },
-        "max_early_data": 0,
-        "early_data_header_name": "Sec-WebSocket-Protocol"
-      },
-      "domain_strategy": "ipv4_only"
+      "type": "selector",
+      "tag": "select",
+      "outbounds": [
+        "auto",
+        "WARP § 0",
+        "Anon-WoW-IPv4🇩🇪 § 1"
+      ],
+      "default": "auto",
+      "interrupt_exist_connections": true
     },
     {
-      "tag": "2-vless-worker-vworker.tycip.wOrKERS.DEv",
-      "type": "vless",
-      "server": "vworker.tycip.workers.dev",
-      "server_port": 2053,
-      "uuid": "3dbcc13a-6998-5eb6-8080-28c2eab1c42d",
-      "flow": "",
-      "packet_encoding": "xudp",
-      "multiplex": {
-        "enabled": false,
-        "protocol": "smux",
-        "max_streams": 32
-      },
-      "tls": {
-        "enabled": true,
-        "server_name": "vworker.tycip.wOrKERS.DEv",
-        "insecure": true,
-        "disable_sni": false
-      },
-      "transport": {
-        "type": "ws",
-        "path": "vless-ws/?ed=2048",
-        "headers": {
-          "Host": "vworker.tycip.wOrKERS.DEv"
-        },
-        "max_early_data": 0,
-        "early_data_header_name": "Sec-WebSocket-Protocol"
-      },
-      "domain_strategy": "ipv4_only"
+      "type": "urltest",
+      "tag": "auto",
+      "outbounds": [
+        "WARP § 0",
+        "Anon-WoW-IPv4🇩🇪 § 1"
+      ],
+      "url": "http://connectivitycheck.gstatic.com/generate_204",
+      "interval": "10m0s",
+      "tolerance": 1,
+      "idle_timeout": "30m0s",
+      "interrupt_exist_connections": true
     },
     {
-      "tag": "3-vless-worker-vworker.tycip.WOrKERS.Dev",
-      "type": "vless",
-      "server": "vworker.tycip.workers.dev",
-      "server_port": 2096,
-      "uuid": "3dbcc13a-6998-5eb6-8080-28c2eab1c42d",
-      "flow": "",
-      "packet_encoding": "xudp",
-      "multiplex": {
-        "enabled": false,
-        "protocol": "smux",
-        "max_streams": 32
-      },
-      "tls": {
-        "enabled": true,
-        "server_name": "vworker.tycip.WOrKERS.Dev",
-        "insecure": true,
-        "disable_sni": false
-      },
-      "transport": {
-        "type": "ws",
-        "path": "vless-ws/?ed=2048",
-        "headers": {
-          "Host": "vworker.tycip.WOrKERS.Dev"
-        },
-        "max_early_data": 0,
-        "early_data_header_name": "Sec-WebSocket-Protocol"
-      },
-      "domain_strategy": "ipv4_only"
+      "type": "wireguard",
+      "tag": "WARP § 0",
+      "local_address": [
+        "172.16.0.2/24",
+        "2606:4700:110:88e1:18d6:7a34:2e91:2ad1/128"
+      ],
+      "private_key": "0J0ZdJpGLFg6T1pTf9w4Y6UkIpOG9+Vdtv9UEn9PumY=",
+      "server": "162.159.192.178",
+      "server_port": 939,
+      "peer_public_key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+      "reserved": "Mb+r",
+      "mtu": 1330,
+      "fake_packets": "20-30",
+      "fake_packets_size": "30-40",
+      "fake_packets_delay": "4-5",
+      "fake_packets_mode": "m4"
     },
     {
-      "tag": "4-vless-worker-vworker.tycip.wORKerS.DEV",
-      "type": "vless",
-      "server": "vworker.tycip.workers.dev",
-      "server_port": 2087,
-      "uuid": "3dbcc13a-6998-5eb6-8080-28c2eab1c42d",
-      "flow": "",
-      "packet_encoding": "xudp",
-      "multiplex": {
-        "enabled": false,
-        "protocol": "smux",
-        "max_streams": 32
-      },
-      "tls": {
-        "enabled": true,
-        "server_name": "vworker.tycip.wORKerS.DEV",
-        "insecure": true,
-        "disable_sni": false
-      },
-      "transport": {
-        "type": "ws",
-        "path": "vless-ws/?ed=2048",
-        "headers": {
-          "Host": "vworker.tycip.wORKerS.DEV"
-        },
-        "max_early_data": 0,
-        "early_data_header_name": "Sec-WebSocket-Protocol"
-      },
-      "domain_strategy": "ipv4_only"
+      "type": "wireguard",
+      "tag": "Anon-WoW-IPv4🇩🇪 § 1",
+      "detour": "WARP § 0",
+      "local_address": [
+        "172.16.0.2/24",
+        "2606:4700:110:806f:4af7:3e1f:2e1a:8ada/128"
+      ],
+      "private_key": "gFY4vUtqBQuSYob1ECESfEFZSLLQZVH7gOl/tV9fkn0=",
+      "server": "162.159.192.178",
+      "server_port": 939,
+      "peer_public_key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+      "reserved": "Y+xs",
+      "mtu": 1330,
+      "fake_packets_mode": "m4"
     },
     {
-      "tag": "5-vless-worker-vworker.tycip.WOrKErS.Dev",
-      "type": "vless",
-      "server": "vworker.tycip.workers.dev",
-      "server_port": 2096,
-      "uuid": "3dbcc13a-6998-5eb6-8080-28c2eab1c42d",
-      "flow": "",
-      "packet_encoding": "xudp",
-      "multiplex": {
-        "enabled": false,
-        "protocol": "smux",
-        "max_streams": 32
-      },
-      "tls": {
-        "enabled": true,
-        "server_name": "vworker.tycip.WOrKErS.Dev",
-        "insecure": true,
-        "disable_sni": false
-      },
-      "transport": {
-        "type": "ws",
-        "path": "vless-ws/?ed=2048",
-        "headers": {
-          "Host": "vworker.tycip.WOrKErS.Dev"
-        },
-        "max_early_data": 0,
-        "early_data_header_name": "Sec-WebSocket-Protocol"
-      },
-      "domain_strategy": "ipv4_only"
-    },
-    {
-      "tag": "6-vless-worker-vworker.tycip.woRKerS.DEv",
-      "type": "vless",
-      "server": "vworker.tycip.workers.dev",
-      "server_port": 2083,
-      "uuid": "3dbcc13a-6998-5eb6-8080-28c2eab1c42d",
-      "flow": "",
-      "packet_encoding": "xudp",
-      "multiplex": {
-        "enabled": false,
-        "protocol": "smux",
-        "max_streams": 32
-      },
-      "tls": {
-        "enabled": true,
-        "server_name": "vworker.tycip.woRKerS.DEv",
-        "insecure": true,
-        "disable_sni": false
-      },
-      "transport": {
-        "type": "ws",
-        "path": "vless-ws/?ed=2048",
-        "headers": {
-          "Host": "vworker.tycip.woRKerS.DEv"
-        },
-        "max_early_data": 0,
-        "early_data_header_name": "Sec-WebSocket-Protocol"
-      },
-      "domain_strategy": "ipv4_only"
-    },
-    {
-      "tag": "26-trojan-worker-vworker.tycip.worKErs.dEV",
-      "type": "trojan",
-      "server": "vworker.tycip.workers.dev",
-      "server_port": 443,
-      "password": "3dbcc13a-6998-5eb6-8080-28c2eab1c42d",
-      "multiplex": {
-        "enabled": false,
-        "protocol": "smux",
-        "max_streams": 32
-      },
-      "tls": {
-        "enabled": true,
-        "server_name": "vworker.tycip.worKErs.dEV",
-        "insecure": true,
-        "disable_sni": false
-      },
-      "transport": {
-        "type": "ws",
-        "path": "trojan-ws/?ed=2048",
-        "headers": {
-          "Host": "vworker.tycip.worKErs.dEV"
-        },
-        "max_early_data": 0,
-        "early_data_header_name": "Sec-WebSocket-Protocol"
-      },
-      "domain_strategy": "ipv4_only"
-    },
-    {
-      "tag": "28-trojan-worker-vworker.tycip.woRKERs.deV",
-      "type": "trojan",
-      "server": "vworker.tycip.workers.dev",
-      "server_port": 2096,
-      "password": "3dbcc13a-6998-5eb6-8080-28c2eab1c42d",
-      "multiplex": {
-        "enabled": false,
-        "protocol": "smux",
-        "max_streams": 32
-      },
-      "tls": {
-        "enabled": true,
-        "server_name": "vworker.tycip.woRKERs.deV",
-        "insecure": true,
-        "disable_sni": false
-      },
-      "transport": {
-        "type": "ws",
-        "path": "trojan-ws/?ed=2048",
-        "headers": {
-          "Host": "vworker.tycip.woRKERs.deV"
-        },
-        "max_early_data": 0,
-        "early_data_header_name": "Sec-WebSocket-Protocol"
-      },
-      "domain_strategy": "ipv4_only"
+      "type": "dns",
+      "tag": "dns-out"
     },
     {
       "type": "direct",
       "tag": "direct"
     },
     {
-      "type": "block",
-      "tag": "block"
+      "type": "direct",
+      "tag": "direct-fragment",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
+      }
     },
     {
-      "type": "dns",
-      "tag": "dns-out"
+      "type": "direct",
+      "tag": "bypass"
+    },
+    {
+      "type": "block",
+      "tag": "block"
     }
   ],
   "route": {
-    "auto_detect_interface": true,
-    "override_android_vpn": true,
-    "final": "Internet",
-    "geoip": {
-      "download_url": "https://ghproxy.com/https://github.com/malikshi/sing-box-geo/releases/latest/download/geoip.db",
-      "download_detour": "Best Latency"
-    },
-    "geosite": {
-      "download_url": "https://ghproxy.com/https://github.com/malikshi/v2ray-rules-dat/releases/latest/download/geosite.db",
-      "download_detour": "Best Latency"
-    },
     "rules": [
       {
-        "outbound": "dns-out",
-        "port": [
-          53
-        ]
+        "inbound": "dns-in",
+        "outbound": "dns-out"
+      },
+      {
+        "port": 53,
+        "outbound": "dns-out"
+      },
+      {
+        "domain_suffix": ".ir",
+        "outbound": "direct"
+      },
+      {
+        "rule_set": [
+          "geoip-ir",
+          "geosite-ir"
+        ],
+        "outbound": "direct"
       }
-    ]
+    ],
+    "rule_set": [
+      {
+        "type": "remote",
+        "tag": "geoip-ir",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/hiddify/hiddify-geo/rule-set/country/geoip-ir.srs",
+        "update_interval": "120h0m0s"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-ir",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/hiddify/hiddify-geo/rule-set/country/geosite-ir.srs",
+        "update_interval": "120h0m0s"
+      }
+    ],
+    "final": "select",
+    "auto_detect_interface": true,
+    "override_android_vpn": true
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true,
+      "path": "clash.db"
+    },
+    "clash_api": {
+      "external_controller": "127.0.0.1:16756",
+      "secret": "qsAcQsmpsNRMiXnA"
+    }
   }
 }
