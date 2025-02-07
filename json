@@ -2,7 +2,7 @@
   "dns": {
     "servers": [
       {
-        "address": "tls://208.67.222.123",
+        "address": "tcp://9.9.9.9",
         "address_resolver": "local-dns",
         "detour": "proxy",
         "tag": "proxy-dns"
