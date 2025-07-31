@@ -102,8 +102,8 @@
             "ipv6": "2606:4700:110:8f21:493:491b:14c4:b822/128",
             "ip-version": "ipv4",
             "private-key": "MGST25V/nl5QxrM7VPJpZfBa2sZNb4PfLW5l/kIU12M=",
-            "server": "8.35.211.145",
-            "port": 8886,
+            "server": "8.39.214.12",
+            "port": 1701,
             "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
             "allowed-ips": [
                 "0.0.0.0/0",
@@ -125,8 +125,8 @@
             "ipv6": "2606:4700:110:881e:6132:ceb5:a763:8856/128",
             "ip-version": "ipv4",
             "private-key": "4HQhXxbdySKaE3In9jp+31OhTmJTrfUM5UlSO0KxPW4=",
-            "server": "8.39.214.12",
-            "port": 1701,
+            "server": "8.39.214.0",
+            "port": 1387,
             "public-key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
             "allowed-ips": [
                 "0.0.0.0/0",
